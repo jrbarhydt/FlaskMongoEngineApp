@@ -1,27 +1,25 @@
 # flask packages
 from flask import Flask
-from flask import jsonify
-from flask import request
 from flask_mongoengine import MongoEngine
-# mongo-engine classes
-from MongoEngineDB.Models.Customers import Customer
-from MongoEngineDB.Models.Orders import Order
-from MongoEngineDB.Models.Reservations import Reservation
+from flask_restful import Api
 # blueprints
 from FlaskMongo.api.dish import dish
-from FlaskMongo.api.customer import customer
 from FlaskMongo.api.reservation import reservation
 # error handler
 from FlaskMongo.api.error import invalid_route
-
-# init flask and mongo-engine
+# api routes
+from FlaskMongo.api.routes import create_route
+# init flask, flask-restful, and flask-mongo-engine
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {'host': 'mongodb://localhost/test_database'}
 app.register_blueprint(dish)
-app.register_blueprint(customer)
 app.register_blueprint(reservation)
-db = MongoEngine()
-db.init_app(app)
+
+api = Api(app=app)
+db = MongoEngine(app=app)
+
+# init api routes
+create_route(api=api)
 
 
 @app.errorhandler(404)

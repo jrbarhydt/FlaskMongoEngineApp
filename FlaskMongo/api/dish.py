@@ -6,7 +6,7 @@ from flask import Blueprint
 from MongoEngineDB.Models.Dishes import Dish
 
 
-dish = Blueprint('dish', __name__, url_prefix='/dish')
+dish = Blueprint('dish', __name__, url_prefix='/api/dish')
 
 
 # /dish
