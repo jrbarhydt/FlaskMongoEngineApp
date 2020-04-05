@@ -12,6 +12,8 @@ class AddressField(EmbeddedDocument):
 
 
 class PhoneField(StringField):
+    # Modification of http://regexlib.com/REDetails.aspx?regexp_id=61
+    #
     # US Phone number that accept a dot, a space, a dash, a forward slash, between the numbers.
     # Will Accept a 1 or 0 in front. Area Code not necessary
     REGEX = re.compile(r"((\(\d{3}\)?)|(\d{3}))([-\s./]?)(\d{3})([-\s./]?)(\d{4})")
