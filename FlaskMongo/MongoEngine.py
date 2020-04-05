@@ -11,6 +11,8 @@ from MongoEngineDB.Models.Reservations import Reservation
 from FlaskMongo.api.dish import dish
 from FlaskMongo.api.customer import customer
 from FlaskMongo.api.reservation import reservation
+# error handler
+from FlaskMongo.api.error import invalid_route
 
 # init flask and mongo-engine
 app = Flask(__name__)
@@ -23,11 +25,6 @@ db.init_app(app)
 
 
 @app.errorhandler(404)
-def page_not_found(e):
-    output = {"error":
-              {"message": "404 error: This route is currently not supported. Please refer API documentation."}
-              }
-    resp = jsonify({'result': output})
-    resp.status_code = 404
-    return resp
+def err(e):
+    return invalid_route(e)
 
