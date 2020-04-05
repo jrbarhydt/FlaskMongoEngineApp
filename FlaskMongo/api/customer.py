@@ -5,6 +5,7 @@ from flask import Blueprint
 from flask_restful import Resource
 # mongo-engine classes
 from MongoEngineDB.Models.Customers import Customer
+from bson import ObjectId
 
 
 class CustomersApi(Resource):
@@ -21,7 +22,7 @@ class CustomersApi(Resource):
 
 class CustomerApi(Resource):
     def get(self, customer_id):
-        jsonify({'result': Customer.objects(id=customer_id)})
+        return jsonify({'result': Customer.objects(id=customer_id)})
 
     def put(self, customer_id):
         data = request.get_json()
