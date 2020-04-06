@@ -1,7 +1,16 @@
 from mongoengine import Document, EmbeddedDocument, EmbeddedDocumentField, ListField, StringField, \
-    EmailField, DateField, ReferenceField
+    EmailField, DateField, ReferenceField, BooleanField
 from flask_bcrypt import generate_password_hash, check_password_hash
 import re
+
+
+class Access(EmbeddedDocument):
+    guest = BooleanField(default=True)
+    user = BooleanField(default=True)
+    server = BooleanField(default=False)
+    cook = BooleanField(default=False)
+    manager = BooleanField(default=False)
+    admin = BooleanField(default=False)
 
 
 class PhoneField(StringField):
@@ -20,6 +29,7 @@ class PhoneField(StringField):
 class User(Document):
     email = EmailField(required=True, unique=True)
     password = StringField(required=True, min_length=6, regex=None)
+    access = ListField(EmbeddedDocumentField(Access), default=[Access(guest=True)])
 
     def generate_pw_hash(self):
         self.password = generate_password_hash(password=self.password).decode('utf-8')

@@ -2,11 +2,12 @@
 from flask import jsonify
 from flask import request
 from flask import Blueprint
+from flask_jwt_extended import jwt_required
 # mongo-engine classes
 from MongoEngineDB.Models.Dishes import Dish
 
 
-dish = Blueprint('dish', __name__, url_prefix='/api/dish')
+dish = Blueprint('dish', __name__, url_prefix='/dish')
 
 
 # /dish
@@ -27,6 +28,7 @@ def get_random_dish(qty):
 
 
 @dish.route('/', methods=['POST'])
+@jwt_required
 def add_dish():
     data = request.get_json()
     post_dish = Dish(**data).save()
@@ -35,6 +37,7 @@ def add_dish():
 
 
 @dish.route('/<dish_id>', methods=['PUT'])
+@jwt_required
 def modify_dish(dish_id):
     data = request.get_json()
     put_dish = Dish.objects(id=dish_id).update(**data)
