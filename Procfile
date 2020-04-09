@@ -1,1 +1,1 @@
-web: python launch_api.py me d
+web: python3 launch_api.py me d
