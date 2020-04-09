@@ -2,7 +2,7 @@ from .customer import CustomerApi, CustomersApi, RandomCustomersApi
 from .authentication import SignUpApi, LoginApi
 from .user import UserApi, UsersApi
 from .order import OrdersApi
-from .reset_password import ForgotPassword, ResetPassword
+# from .reset_password import ForgotPassword, ResetPassword
 
 
 def create_routes(api):
